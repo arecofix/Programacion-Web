@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modo Día/Noche</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Estilos personalizados -->
+    <style>
+        .theme-toggle-btn {
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        
+        .card {
+            transition: background-color 0.5s ease, border-color 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <header class="d-flex justify-content-between align-items-center mb-5">
+            <h1 class="display-4">Hola mundo</h1>
+            <button id="themeToggle" class="btn btn-outline-secondary theme-toggle-btn">
+                <i class="bi bi-moon-fill"></i> Modo Noche
+            </button>
+        </header>
+        
+        <main>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h2 class="card-title">Soluciones Informaticas</h2>
+                            <p class="card-text">Visita nuestro perfil de github</p>
+                            <a href="https://github/arecofix/" class="btn-primary mt-3">Ir al github</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h2 class="card-title">Mi portfolio web</h2>
+                            <p class="card-text">Visita todos mis proyectos en</p>
+                            <a href="https://arecofix.com.ar/portfolio" class="btn-primary mt-3">Ir al Portafolio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-4">
+                <p>Prueba a cambiar entre los modos día y noche usando el botón en la esquina superior derecha.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Bootstrap JS Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- JavaScript para el cambio de tema -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlElement = document.documentElement;
+            const icon = themeToggle.querySelector('i');
+            
+            const updateTheme = () => {
+                const isDark = htmlElement.getAttribute('data-bs-theme') === 'dark';
+                
+                if (isDark) {
+                    icon.classList.remove('bi-sun-fill');
+                    icon.classList.add('bi-moon-fill');
+                    themeToggle.innerHTML = '<i class="bi bi-moon-fill"></i> Modo Noche';
+                } else {
+                    icon.classList.remove('bi-moon-fill');
+                    icon.classList.add('bi-sun-fill');
+                    themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i> Modo Día';
+                }
+            };
+            
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = htmlElement.getAttribute('data-bs-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                htmlElement.setAttribute('data-bs-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateTheme();
+            });
+            
+            // Cargar tema guardado
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            htmlElement.setAttribute('data-bs-theme', savedTheme);
+            updateTheme();
+        });
+    </script>
+</body>
+</html>
